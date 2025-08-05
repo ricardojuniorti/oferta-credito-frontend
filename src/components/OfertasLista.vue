@@ -87,7 +87,7 @@ export default {
     async buscarOfertasSalvas() {
       try {
         const response = await axios.get(
-          'http://credito-backend.todeboua.com/api/historico-ofertas',
+          'https://credito-backend.todeboua.com/api/historico-ofertas',
         )
         console.log('📦 Dados recebidos:', response.data)
         this.grupos = response.data
@@ -100,7 +100,9 @@ export default {
       if (!confirm(`Tem certeza que deseja excluir a oferta nº ${numeroOferta}?`)) return
 
       try {
-        await axios.delete(`http://credito-backend.todeboua.com/api/excluir-oferta/${numeroOferta}`)
+        await axios.delete(
+          `https://credito-backend.todeboua.com/api/excluir-oferta/${numeroOferta}`,
+        )
         alert(`Oferta nº ${numeroOferta} excluída com sucesso!`)
         this.buscarOfertasSalvas() // Atualiza a lista
       } catch (error) {

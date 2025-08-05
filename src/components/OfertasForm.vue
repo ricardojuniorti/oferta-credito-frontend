@@ -46,9 +46,12 @@ export default {
   methods: {
     async consultarOfertas() {
       try {
-        const response = await axios.post('http://credito-backend.todeboua.com/api/gerar-ofertas', {
-          cpf: this.cpf,
-        })
+        const response = await axios.post(
+          'https://credito-backend.todeboua.com/api/gerar-ofertas',
+          {
+            cpf: this.cpf,
+          },
+        )
         this.ofertas = response.data
       } catch (error) {
         alert('Erro ao buscar ofertas. Verifique o CPF ou a API.')
