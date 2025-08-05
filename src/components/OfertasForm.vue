@@ -34,29 +34,29 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   data() {
     return {
       cpf: '',
       ofertas: [],
-    };
+    }
   },
   methods: {
     async consultarOfertas() {
       try {
-        const response = await axios.post('http://localhost:8000/api/gerar-ofertas', {
+        const response = await axios.post('http://credito-backend.todeboua.com/api/gerar-ofertas', {
           cpf: this.cpf,
-        });
-        this.ofertas = response.data;
+        })
+        this.ofertas = response.data
       } catch (error) {
-        alert('Erro ao buscar ofertas. Verifique o CPF ou a API.');
-        console.error(error);
+        alert('Erro ao buscar ofertas. Verifique o CPF ou a API.')
+        console.error(error)
       }
     },
   },
-};
+}
 </script>
 
 <style scoped>
@@ -72,7 +72,8 @@ table {
   border-collapse: collapse;
   margin-top: 20px;
 }
-th, td {
+th,
+td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: center;
