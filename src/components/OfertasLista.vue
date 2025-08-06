@@ -7,7 +7,7 @@
 
       <div v-for="lote in grupo.lotes" :key="lote.numero_oferta" class="subgrupo">
         <div class="header-lote">
-          <h4>Oferta Nº {{ lote.numero_oferta }} | Data: {{ lote.data_oferta }}</h4>
+          <h4>Oferta Nº {{ lote.numero_oferta }} | Data: {{ lote.created_at }}</h4>
           <button @click="excluirOferta(lote.numero_oferta)" class="excluir-btn">Excluir</button>
         </div>
 
