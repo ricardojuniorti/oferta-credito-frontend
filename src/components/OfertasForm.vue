@@ -1,44 +1,48 @@
 <template>
-  <form @submit.prevent="consultarOfertas" class="formulario">
-    <label for="cpf" class="label-cpf">Digite o CPF:</label>
-    <input
-      v-model="cpf"
-      type="text"
-      id="cpf"
-      placeholder="000.000.000-00"
-      required
-      class="input-cpf"
-    />
-    <button type="submit" class="btn-submit">Consultar Ofertas</button>
+  <div class="formulario-wrapper">
+    <form @submit.prevent="consultarOfertas" class="formulario">
+      <label for="cpf" class="label-cpf">Digite o CPF:</label>
+      <input
+        v-model="cpf"
+        type="text"
+        id="cpf"
+        placeholder="000.000.000-00"
+        required
+        class="input-cpf"
+      />
+      <button type="submit" class="btn-submit">Consultar Ofertas</button>
+    </form>
 
-    <div v-if="ofertas.length" class="resultado">
-      <h3>Top 3 Ofertas</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Instituição</th>
-              <th>Modalidade</th>
-              <th>Valor Solicitado</th>
-              <th>Parcelas</th>
-              <th>Taxa de Juros</th>
-              <th>Valor Final</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(oferta, index) in ofertas" :key="index">
-              <td>{{ oferta.instituicaoFinanceira }}</td>
-              <td>{{ oferta.modalidadeCredito }}</td>
-              <td>R$ {{ oferta.valorSolicitado.toFixed(2) }}</td>
-              <td>{{ oferta.qntParcelas }}</td>
-              <td>{{ (oferta.taxaJuros * 100).toFixed(2) }}%</td>
-              <td>R$ {{ oferta.valorAPagar.toFixed(2) }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <transition name="fade">
+      <div v-if="ofertas.length" class="resultado">
+        <h3>Top 3 Ofertas</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Instituição</th>
+                <th>Modalidade</th>
+                <th>Valor Solicitado</th>
+                <th>Parcelas</th>
+                <th>Taxa de Juros</th>
+                <th>Valor Final</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(oferta, index) in ofertas" :key="index">
+                <td>{{ oferta.instituicaoFinanceira }}</td>
+                <td>{{ oferta.modalidadeCredito }}</td>
+                <td>R$ {{ oferta.valorSolicitado.toFixed(2) }}</td>
+                <td>{{ oferta.qntParcelas }}</td>
+                <td>{{ (oferta.taxaJuros * 100).toFixed(2) }}%</td>
+                <td>R$ {{ oferta.valorAPagar.toFixed(2) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </form>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -71,10 +75,13 @@ export default {
 </script>
 
 <style scoped>
-.formulario {
-  max-width: 800px;
+.formulario-wrapper {
+  max-width: 900px;
   margin: 30px auto;
-  padding: 20px;
+  padding: 0 15px;
+}
+
+.formulario {
   background: #f9fafb;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
@@ -82,6 +89,7 @@ export default {
   flex-direction: column;
   gap: 15px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
 }
 
 .label-cpf {
@@ -156,6 +164,18 @@ td {
 th {
   background-color: #f1f3f5;
   font-weight: 700;
+}
+
+/* Fade-in transition */
+.fade-enter-active {
+  transition: opacity 0.5s ease;
+}
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 @media (max-width: 640px) {
