@@ -72,7 +72,7 @@ export default {
 
 <style scoped>
 .formulario {
-  max-width: 600px;
+  max-width: 800px;
   margin: 30px auto;
   padding: 20px;
   background: #f9fafb;
