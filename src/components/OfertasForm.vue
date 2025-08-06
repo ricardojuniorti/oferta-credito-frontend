@@ -150,21 +150,25 @@ table {
   width: 100%;
   border-collapse: collapse;
   min-width: 600px;
-  background-color: #fff; /* Fundo branco */
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 
 th,
 td {
   padding: 12px 15px;
-  border: 1px solid #000; /* Linhas pretas */
+  border: 1px solid #444;
   text-align: center;
   font-size: 0.95rem;
-  color: #000; /* Letras pretas */
 }
 
 th {
-  background-color: #fff; /* Também branco */
+  background-color: #333;
   font-weight: 700;
+}
+
+tbody tr:hover {
+  background-color: #2a2a2a;
 }
 
 /* Fade-in transition */
