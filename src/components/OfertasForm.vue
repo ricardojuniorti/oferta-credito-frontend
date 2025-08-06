@@ -150,19 +150,20 @@ table {
   width: 100%;
   border-collapse: collapse;
   min-width: 600px;
+  background-color: #fff; /* Fundo branco */
 }
 
 th,
 td {
   padding: 12px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #000; /* Linhas pretas */
   text-align: center;
   font-size: 0.95rem;
-  color: #444;
+  color: #000; /* Letras pretas */
 }
 
 th {
-  background-color: #f1f3f5;
+  background-color: #fff; /* Também branco */
   font-weight: 700;
 }
 
