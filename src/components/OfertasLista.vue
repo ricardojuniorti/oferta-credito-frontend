@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <h2>Ofertas Salvas no Banco</h2>
+    <h2>📦 Ofertas Salvas no Banco</h2>
 
     <div v-for="grupo in grupos" :key="grupo.cpf" class="grupo">
-      <h3>CPF: {{ grupo.cpf }}</h3>
+      <h3 class="cpf-title">CPF: {{ grupo.cpf }}</h3>
 
       <div v-for="lote in grupo.lotes" :key="lote.numero_oferta" class="subgrupo">
         <div class="header-lote">
@@ -123,20 +123,30 @@ export default {
   margin: 30px auto;
   padding: 0 15px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #222;
+  color: #fff;
+  background-color: #121212;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
 }
 
 .grupo {
-  border: 1px solid #ddd;
+  border: 1px solid #333;
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 25px;
-  background-color: #fafafa;
+  background-color: #1e1e1e;
+}
+
+.cpf-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #bbb;
 }
 
 .subgrupo {
@@ -149,17 +159,18 @@ h2 {
   align-items: center;
   margin-bottom: 10px;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
 .header-lote h4 {
   margin: 0;
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: #333;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ddd;
 }
 
 .excluir-btn {
-  background-color: #e74c3c;
+  background-color: #ff4d4f;
   color: white;
   border: none;
   padding: 6px 14px;
@@ -167,46 +178,48 @@ h2 {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  white-space: nowrap;
 }
 
-.excluir-btn:hover,
-.excluir-btn:focus {
-  background-color: #c0392b;
-  outline: none;
+.excluir-btn:hover {
+  background-color: #d9363e;
 }
 
 .table-wrapper {
   overflow-x: auto;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.3);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   min-width: 700px;
+  background-color: #1e1e1e;
+  color: #fff;
 }
 
 th,
 td {
-  border: 1px solid #ccc;
+  border: 1px solid #444;
   padding: 10px 12px;
   text-align: center;
   font-size: 0.9rem;
-  color: #444;
 }
 
 th {
-  background-color: #f0f0f0;
+  background-color: #333;
   font-weight: 700;
+  color: #fff;
+}
+
+tbody tr:hover {
+  background-color: #2a2a2a;
 }
 
 @media (max-width: 700px) {
   .header-lote {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
   }
 
   .excluir-btn {
@@ -216,6 +229,11 @@ th {
 
   table {
     font-size: 0.8rem;
+  }
+
+  th,
+  td {
+    padding: 8px;
   }
 }
 </style>
