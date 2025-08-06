@@ -1,39 +1,43 @@
 <template>
-  <div>
+  <div class="container">
     <h2>Ofertas Salvas no Banco</h2>
 
     <div v-for="grupo in grupos" :key="grupo.cpf" class="grupo">
       <h3>CPF: {{ grupo.cpf }}</h3>
 
       <div v-for="lote in grupo.lotes" :key="lote.numero_oferta" class="subgrupo">
-        <h3>
-          CPF: {{ grupo.cpf }} | Oferta Nº {{ lote.numero_oferta }} | Data: {{ lote.data_oferta }}
+        <div class="header-lote">
+          <h4>Oferta Nº {{ lote.numero_oferta }} | Data: {{ lote.data_oferta }}</h4>
           <button @click="excluirOferta(lote.numero_oferta)" class="excluir-btn">Excluir</button>
-        </h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Instituição</th>
-              <th>Modalidade</th>
-              <th>Valor Solicitado</th>
-              <th>Parcelas</th>
-              <th>Taxa de Juros</th>
-              <th>Valor a Pagar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(oferta, idx) in lote.ofertas" :key="idx">
-              <td>{{ oferta.instituicaoFinanceira }}</td>
-              <td>{{ oferta.modalidadeCredito }}</td>
-              <td>R${{ parseFloat(oferta.valorSolicitado).toFixed(2) }}</td>
-              <td>{{ parseInt(oferta.qntParcelas) }}</td>
-              <td>{{ (parseFloat(oferta.taxaJuros) * 100).toFixed(2) }}%</td>
-              <td>R${{ parseFloat(oferta.valorAPagar).toFixed(2) }}</td>
-            </tr>
-          </tbody>
-        </table>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Instituição</th>
+                <th>Modalidade</th>
+                <th>Valor Solicitado</th>
+                <th>Parcelas</th>
+                <th>Taxa de Juros</th>
+                <th>Valor a Pagar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(oferta, idx) in lote.ofertas" :key="idx">
+                <td>{{ oferta.instituicaoFinanceira }}</td>
+                <td>{{ oferta.modalidadeCredito }}</td>
+                <td>R$ {{ parseFloat(oferta.valorSolicitado).toFixed(2) }}</td>
+                <td>{{ parseInt(oferta.qntParcelas) }}</td>
+                <td>{{ (parseFloat(oferta.taxaJuros) * 100).toFixed(2) }}%</td>
+                <td>R$ {{ parseFloat(oferta.valorAPagar).toFixed(2) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+
     <BarChart :chart-data="chartData" :chart-options="chartOptions" />
   </div>
 </template>
@@ -89,7 +93,6 @@ export default {
         const response = await axios.get(
           'https://credito-backend.todeboua.com/api/historico-ofertas',
         )
-        console.log('📦 Dados recebidos:', response.data)
         this.grupos = response.data
       } catch (error) {
         console.error('Erro ao buscar ofertas salvas:', error)
@@ -104,7 +107,7 @@ export default {
           `https://credito-backend.todeboua.com/api/excluir-oferta/${numeroOferta}`,
         )
         alert(`Oferta nº ${numeroOferta} excluída com sucesso!`)
-        this.buscarOfertasSalvas() // Atualiza a lista
+        this.buscarOfertasSalvas()
       } catch (error) {
         alert('Erro ao excluir a oferta.')
         console.error(error)
@@ -115,43 +118,104 @@ export default {
 </script>
 
 <style scoped>
-.grupo {
-  margin-bottom: 30px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
 }
-.subgrupo {
-  margin-top: 10px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 8px;
+
+h2 {
   text-align: center;
+  margin-bottom: 25px;
 }
-th {
-  background-color: #f5f5f5;
-  color: #2b2929;
+
+.grupo {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 25px;
+  background-color: #fafafa;
+}
+
+.subgrupo {
+  margin-top: 15px;
+}
+
+.header-lote {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.header-lote h4 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #333;
 }
 
 .excluir-btn {
-  background-color: #ff4d4f;
+  background-color: #e74c3c;
   color: white;
   border: none;
-  padding: 4px 10px;
-  margin-left: 10px;
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 4px;
-  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
-.excluir-btn:hover {
-  background-color: #d9363e;
+.excluir-btn:hover,
+.excluir-btn:focus {
+  background-color: #c0392b;
+  outline: none;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .header-lote {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .excluir-btn {
+    width: 100%;
+    padding: 8px 0;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
 }
 </style>
