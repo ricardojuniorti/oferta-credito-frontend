@@ -21,6 +21,7 @@
                 <th>Parcelas</th>
                 <th>Taxa de Juros</th>
                 <th>Valor a Pagar</th>
+                <th>Data Oferta</th>
               </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
                 <td>{{ parseInt(oferta.qntParcelas) }}</td>
                 <td>{{ (parseFloat(oferta.taxaJuros) * 100).toFixed(2) }}%</td>
                 <td>R$ {{ parseFloat(oferta.valorAPagar).toFixed(2) }}</td>
+                <td>R$ {{ oferta.dataOferta }}</td>
               </tr>
             </tbody>
           </table>
