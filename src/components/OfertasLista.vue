@@ -63,13 +63,19 @@ export default {
         g.lotes.reduce((acc, lote) => acc + (lote.ofertas?.length || 0), 0),
       )
 
+      const backgroundColors = labels.map(() => {
+        // Gera cor aleatória no estilo pastelzinho suave
+        const hue = Math.floor(Math.random() * 360)
+        return `hsl(${hue}, 70%, 60%)`
+      })
+
       return {
         labels,
         datasets: [
           {
-            label: 'Ofertas',
-            backgroundColor: '#42b983',
+            label: 'Ofertas por CPF',
             data,
+            backgroundColor: backgroundColors,
           },
         ],
       }
@@ -78,15 +84,25 @@ export default {
       return {
         responsive: true,
         plugins: {
-          legend: { display: false },
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#fff', // cor do texto da legenda (dark mode)
+            },
+          },
           title: {
             display: true,
-            text: 'Quantidade de Ofertas por CPF',
+            text: 'Distribuição de Ofertas por CPF',
+            color: '#fff',
+            font: {
+              size: 18,
+            },
           },
         },
       }
     },
   },
+
   methods: {
     async buscarOfertasSalvas() {
       try {
