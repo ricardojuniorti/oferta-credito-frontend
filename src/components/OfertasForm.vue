@@ -2,15 +2,17 @@
   <div class="formulario-wrapper">
     <form @submit.prevent="consultarOfertas" class="formulario">
       <label for="cpf" class="label-cpf">Digite o CPF:</label>
-      <input
-        v-model="cpf"
-        type="text"
-        id="cpf"
-        placeholder="000.000.000-00"
-        required
-        class="input-cpf"
-      />
-      <button type="submit" class="btn-submit">Consultar Ofertas</button>
+      <div class="input-group">
+        <input
+          v-model="cpf"
+          type="text"
+          id="cpf"
+          placeholder="000.000.000-00"
+          required
+          class="input-cpf"
+        />
+        <button type="submit" class="btn-submit">Consultar Ofertas</button>
+      </div>
     </form>
 
     <transition name="fade">
@@ -60,9 +62,7 @@ export default {
       try {
         const response = await axios.post(
           'https://credito-backend.todeboua.com/api/gerar-ofertas',
-          {
-            cpf: this.cpf,
-          },
+          { cpf: this.cpf },
         )
         this.ofertas = response.data
       } catch (error) {
@@ -75,35 +75,45 @@ export default {
 </script>
 
 <style scoped>
+/* Container centralizado */
 .formulario-wrapper {
   max-width: 900px;
   margin: 30px auto;
   padding: 0 15px;
+  color: #fff;
 }
 
+/* Form */
 .formulario {
-  background: #f9fafb;
+  background: #1e1e1e;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
   display: flex;
   flex-direction: column;
   gap: 15px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
 }
 
 .label-cpf {
   font-weight: 600;
   font-size: 1.1rem;
-  color: #333;
+  color: #eee;
+}
+
+/* Input e botão juntos no desktop, empilhados no mobile */
+.input-group {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
 }
 
 .input-cpf {
   padding: 10px 12px;
   font-size: 1rem;
-  border: 1.5px solid #ccc;
+  border: 1.5px solid #666;
   border-radius: 5px;
-  transition: border-color 0.3s ease;
+  background-color: #fff;
+  color: #000;
 }
 
 .input-cpf:focus {
@@ -117,33 +127,35 @@ export default {
   color: white;
   border: none;
   padding: 12px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  align-self: flex-start;
-  width: fit-content;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .btn-submit:hover {
   background-color: #0056b3;
 }
 
+/* Resultado */
 .resultado {
   margin-top: 30px;
 }
 
 .resultado h3 {
   margin-bottom: 12px;
-  color: #222;
+  color: #fff;
   font-weight: 700;
 }
 
+/* Tabela responsiva */
 .table-wrapper {
   overflow-x: auto;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.3);
 }
 
 table {
@@ -171,7 +183,7 @@ tbody tr:hover {
   background-color: #2a2a2a;
 }
 
-/* Fade-in transition */
+/* Fade animation */
 .fade-enter-active {
   transition: opacity 0.5s ease;
 }
@@ -183,21 +195,14 @@ tbody tr:hover {
   opacity: 0;
 }
 
-@media (max-width: 640px) {
-  .formulario {
-    margin: 15px 10px;
-    padding: 15px;
+/* Mobile layout */
+@media (min-width: 640px) {
+  .input-group {
+    flex-direction: row;
   }
-  .input-cpf {
-    font-size: 0.9rem;
-  }
+
   .btn-submit {
-    width: 100%;
-    font-size: 1rem;
-  }
-  table {
-    min-width: 100%;
-    font-size: 0.85rem;
+    width: auto;
   }
 }
 </style>
